@@ -1,6 +1,8 @@
 ---
 title: SAX Parsing Guide
 description: A guide to SAX parsing in Gleam using the xmlm package.
+publishDate: 2026-01-30
+lastUpdated: 2026-01-30
 ---
 
 While `xmlm` provides an API to do pull-based XML parsing (that is your application is in charge of moving the cursor forward when you need it, sometimes called a [StAX](https://en.wikipedia.org/wiki/StAX) parser),

@@ -1,6 +1,8 @@
 ---
 title: Notes on Astro Starlight
 description: Some notes about Astro Starlight
+publishDate: 2026-01-30
+lastUpdated: 2026-01-30
 ---
 
 This site uses [Astro Starlight](https://starlight.astro.build/). It's nice! Here are a few notes about it.
