@@ -6,3 +6,7 @@ hero:
   tagline: Fragments, connections, and thoughts
 ---
 
+## Index Pages
+
+- [Gleam Field Notes](/gleam/)
+- [Uncategorized Field Notes](/uncategorized/)
