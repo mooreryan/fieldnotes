@@ -3,9 +3,13 @@ title: Event-Driven XML Parsing in Gleam
 description: A guide to SAX-style parsing of XML files in Gleam using the xmlm package.
 publishDate: 2026-01-30
 lastUpdated: 2026-01-30
+sidebar:
+  badge: Tutorial
+  label: Event-Driven XML Parsing
 ---
 
 :::note
+
 This guide is still incomplete! Here is how it's going so far:
 
 - [x] Handling different signals in a signal stream
@@ -21,7 +25,7 @@ Regardless of whether the parsing is push- or pull-based, it is event-driven. Ra
 There are a couple of ways use `xmlm` as a push-based parser. For most of the examples, let's use the [fold_signals](https://hexdocs.pm/xmlm/xmlm.html#fold_signals) function. This function is pretty convenient, as it will take care of "pushing" each of the signals in the input to the handler or accumulator function. Let's see it in action!
 
 :::note
-This tutorial is aimed at the beginners to both Gleam and event-driven XML parsing. It will move pretty slowly and methodically, and teach some Gleam concepts along with SAX parsing. If you are an experienced Gleamlin, you may want to skip directly to the code, which can be found on [GitHub](TODO).
+This tutorial doesn't assume you know too much about Gleam or about event-driven XML parsing. It's aimed at beginners to both, and so it will move pretty slowly and methodically, and teach some Gleam concepts along with the XML parsing. If you are an experienced Gleamlin, you may want to skip directly to the code, which can be found on [GitHub](TODO).
 :::
 
 ## Handling Signals in an Event Stream
@@ -41,11 +45,13 @@ Maybe this is a good place to discuss document "well-formedness"?
 
 Let's start by counting the total number of signals present in an XML document. This will be a good starting point for thinking about how to do event-driven XML parsing.
 
-Using a push-based SAX-style approach to parsing XML is all about handling the signals (or events) emitted by the parser, and tracking some data while doing so. For example, you will need to consider what to do when you see the start of a new element, or its data, or the end of an element. Additionally, you will need to decide what data to "carry along" as you progress through the stream.
+Using a push-based SAX-style approach to parsing XML is all about handling the signals (or events) emitted by the parser, and tracking some data while doing so. For example, you will need to consider what to do when you see the start of a new element, or its data, or the end of an element. Additionally, you will need to decide what data to "carry along" as you progress through the stream. (For these first examples, we will be really explicit about planning this out.)
 
-For these first examples, we will be really explicit about planning this out.
+So in this example, we want to count the total number of signals present in the given XML document.
 
-So in this example, we want to count the total number of signals present in the given XML document. First, let's think about what we need to do with different types of signals. Do we need to differentiate between different types of signals? No, we can treat them all the same, since we only care about tracking how many we have seen in the document. Next, what kind of data do we need to keep track of as we progress through the signal stream? (In other words, what state do we need to track)? In this case, the data we need to track is the number of signals that we have seen up until that point.
+First, let's think about what we need to do with different types of signals. Do we need to differentiate between different types of signals? No, we can treat them all the same, since we only care about tracking how many we have seen in the document.
+
+Next, what kind of data do we need to keep track of as we progress through the signal stream? (In other words, what state do we need to track)? In this case, the data we need to track is the number of signals that we have seen up until that point.
 
 We are going to use the [fold_signals](https://hexdocs.pm/xmlm/xmlm.html#fold_signals) function to manage looping through all the signals of the document. It's type signature looks like this:
 
@@ -53,15 +59,36 @@ We are going to use the [fold_signals](https://hexdocs.pm/xmlm/xmlm.html#fold_si
 fn(Input, acc, fn(acc, Signal) -> acc) -> Result(#(acc, Input), InputError)
 ```
 
-Here, `acc` represents the type of the accumulated value (i.e., the accumulator). For reference, here is the type signature of `list.fold` from Gleam's standard library:
+:::note
+If you're new to Gleam (or to any typed language really) getting used to reading type signatures can feel like a bit of a hurdle. If the above signature looks unfamiliar to you, take a little diversion to check out [this page](fold_yo.md) breaking down the fold function from Gleam's stdlib.
 
-```gleam
-fn(List(el), acc, fn(acc, el) -> acc) -> acc
-```
+[fold page](fold_yo.md)
 
-Where `el` is the type of elements of the list, and `acc` is the type of the accumulated value.
+[fold_yo](fold_yo.md)
+
+[fold_yo](fold_yo.md)
+
+[fold_yo](fold_yo.md)
+
+[fold_yo](gleam/fold_yo.md)
+
+:::
 
 It's pretty similar to xmlm's fold_signals function: you have the source data, an accumulated value, and an accumulator/reducer/handler function.
+
+The signature specifies that `fold_signals` is a function of three arguments.
+
+The first argument will always be a value of type [Input](https://hexdocs.pm/xmlm/xmlm.html#Input), which is the type used by `xmlm` to represent "input" abstractions for XML documents.
+
+:::tip
+Do you see how `Input` type name starts with a capital letter? That's how you know it represents a concrete type, as opposed to a type variable, which would start with a lower case letter. And speaking of type variables...
+:::
+
+The second argument represents the accumulated value (or state) that we want to track as we progress through the signals. The type of this argument is represented by the type variable called `acc`. Because it is a type variable rather than a concrete type, we won't know what the type might be just from looking at the signature. Instead, it's a stand in for the specific type of value being used at the time.
+
+What types of values can `acc` stand in for? Well, anything really, as long as it follows the rules of the type signature.
+
+whose types are `Input`, `acc`, and `fn(acc, Signal) -> acc`. (Well, really `acc` is a type variable that stands in for some specific type.)
 
 The return value may seem a bit obscure. Because Gleam doesn't allow mutation of values, we need to return an "updated" input back to the caller.[^1]
 
