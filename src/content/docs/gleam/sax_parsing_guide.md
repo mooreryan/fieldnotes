@@ -1,36 +1,53 @@
 ---
-title: SAX Parsing Guide
-description: A guide to SAX parsing in Gleam using the xmlm package.
+title: Event-Driven XML Parsing in Gleam
+description: A guide to SAX-style parsing of XML files in Gleam using the xmlm package.
 publishDate: 2026-01-30
 lastUpdated: 2026-01-30
 ---
 
-While `xmlm` provides an API to do pull-based XML parsing (that is your application is in charge of moving the cursor forward when you need it, sometimes called a [StAX](https://en.wikipedia.org/wiki/StAX) parser),
-it can sometimes be simpler to use a push-based style instead (sometimes called a [SAX](https://en.wikipedia.org/wiki/Simple_API_for_XML) parser).
-
-Rather than building a Document Object Model (DOM), so that you can work on the whole XML document as a tree, a push-based XML parser works on each piece of the XML document in order, making a single pass through the input stream.
-
-There are a couple of ways use `xmlm` as a push-based parser. For the first couple of examples, let's use the `fold_signals` function. This function is pretty convenient as it will take care of "pushing" each of the signals in the input to the handler/accumulator function. Let's see it in action!
-
 :::note
-This guide is aimed at the beginner Gleam programmer, and so it will go pretty slow and methodically, and teach some Gleam concepts along with SAX parsing. If you are an experienced Gleamlin and just want the SAX examples see the test files [on GitHub](TODO). They have all the code listings to browse.
+This guide is still incomplete! Here is how it's going so far:
+
+- [x] Handling different signals in a signal stream
+- [ ] Tracking depth of the cursor within the XML tree
+- [ ] Some more realistic parsing examples
+
 :::
 
-## Counting Stuff
+In this tutorial, we will take a look at parsing XML files in in [Gleam](https://gleam.run/) using the [xmlm](https://hexdocs.pm/xmlm/) package. `xmlm` provides an API to do pull-based XML parsing. That is, your application is in charge of moving the cursor forward when you need it. You might see this called [StAX](https://en.wikipedia.org/wiki/StAX) (Streaming API for XML). However, I think it can sometimes be simpler to use a push-based style of parsing instead, often known as [SAX](https://en.wikipedia.org/wiki/Simple_API_for_XML) (Simple API for XML).
 
-To get starting with SAX parsing, we will start with some simple examples showing how to count some stuff in XML documents, like total signals, total elements, and the number of specific elements present in a document.
+Regardless of whether the parsing is push- or pull-based, it is event-driven. Rather than building a Document Object Model (DOM), so that you can work on the whole XML tree at once, a event-driven XML parser works on each piece of the XML document in order, making a single pass through the input stream.
 
-These examples will give an intro on how to handling a signal stream.
+There are a couple of ways use `xmlm` as a push-based parser. For most of the examples, let's use the [fold_signals](https://hexdocs.pm/xmlm/xmlm.html#fold_signals) function. This function is pretty convenient, as it will take care of "pushing" each of the signals in the input to the handler or accumulator function. Let's see it in action!
+
+:::note
+This tutorial is aimed at the beginners to both Gleam and event-driven XML parsing. It will move pretty slowly and methodically, and teach some Gleam concepts along with SAX parsing. If you are an experienced Gleamlin, you may want to skip directly to the code, which can be found on [GitHub](TODO).
+:::
+
+## Handling Signals in an Event Stream
+
+To get started, we will work through some simple examples showing how to count some stuff in XML documents, like total signals, total elements, and the number of specific elements present in a document. These examples will help you learn how to handle signals from an event stream.
+
+But first, a note on terminology.
+
+- We use [Signal](https://hexdocs.pm/xmlm/xmlm.html#Signal) as the name of an event in the stream of events that represent the XML document.
+- Sometimes I will say event-driven, sometimes I might say event-based. (Earlier versions of this doc used event-based, so you may still see it if I miss it somewhere.)
+
+:::caution[WIP]{icon="seti:todo"}
+Maybe this is a good place to discuss document "well-formedness"?
+:::
 
 ### Count Signals
 
-Let's start by counting the number of signals present in an input. This will be a good starting point for thinking about how to do SAX parsing.
+Let's start by counting the total number of signals present in an XML document. This will be a good starting point for thinking about how to do event-driven XML parsing.
 
-Using a push-based SAX-style approach to parsing XML is all about handling signals (or events) emitted by the parser. For example, you need to consider what to do when you see the start of a new element, or its data, or the end of an element.
+Using a push-based SAX-style approach to parsing XML is all about handling the signals (or events) emitted by the parser, and tracking some data while doing so. For example, you will need to consider what to do when you see the start of a new element, or its data, or the end of an element. Additionally, you will need to decide what data to "carry along" as you progress through the stream.
 
-In this example, we need to count the total number of signals present in the given input. So, first, do we need to differentiate between signals? No, we can treat them all the same, since we care about counting them all. Next, what data do we need to keep track of (i.e., what state do we need to track)? In this case, the state can be a simple integer representing the total number of signals we have seen so far.
+For these first examples, we will be really explicit about planning this out.
 
-We are going to use the `fold_signals` function to manage looping through all the signals of the document. It's type signature looks like this:
+So in this example, we want to count the total number of signals present in the given XML document. First, let's think about what we need to do with different types of signals. Do we need to differentiate between different types of signals? No, we can treat them all the same, since we only care about tracking how many we have seen in the document. Next, what kind of data do we need to keep track of as we progress through the signal stream? (In other words, what state do we need to track)? In this case, the data we need to track is the number of signals that we have seen up until that point.
+
+We are going to use the [fold_signals](https://hexdocs.pm/xmlm/xmlm.html#fold_signals) function to manage looping through all the signals of the document. It's type signature looks like this:
 
 ```gleam
 fn(Input, acc, fn(acc, Signal) -> acc) -> Result(#(acc, Input), InputError)
