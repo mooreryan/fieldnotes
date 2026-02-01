@@ -25,7 +25,9 @@ Regardless of whether the parsing is push- or pull-based, it is event-driven. Ra
 There are a couple of ways use `xmlm` as a push-based parser. For most of the examples, let's use the [fold_signals](https://hexdocs.pm/xmlm/xmlm.html#fold_signals) function. This function is pretty convenient, as it will take care of "pushing" each of the signals in the input to the handler or accumulator function. Let's see it in action!
 
 :::note
-This tutorial doesn't assume you know too much about Gleam or about event-driven XML parsing. It's aimed at beginners to both, and so it will move pretty slowly and methodically, and teach some Gleam concepts along with the XML parsing. If you are an experienced Gleamlin, you may want to skip directly to the code, which can be found on [GitHub](TODO).
+This tutorial doesn't assume you know too much about Gleam or about event-driven XML parsing. It's aimed at beginners to both, and so it will move pretty slowly and methodically, and teach some Gleam concepts along with the XML parsing. If you are an experienced Gleamlin, you may want to skip directly to the code, which can be found on [GitHub](https://github.com/mooreryan/gleam_xmlm).
+
+(TODO: github link)
 :::
 
 ## Handling Signals in an Event Stream
@@ -60,18 +62,7 @@ fn(Input, acc, fn(acc, Signal) -> acc) -> Result(#(acc, Input), InputError)
 ```
 
 :::note
-If you're new to Gleam (or to any typed language really) getting used to reading type signatures can feel like a bit of a hurdle. If the above signature looks unfamiliar to you, take a little diversion to check out [this page](fold_yo.md) breaking down the fold function from Gleam's stdlib.
-
-[fold page](fold_yo.md)
-
-[fold_yo](fold_yo.md)
-
-[fold_yo](fold_yo.md)
-
-[fold_yo](fold_yo.md)
-
-[fold_yo](gleam/fold_yo.md)
-
+If you're new to Gleam (or to any typed language really) getting used to reading type signatures can feel like a bit of a hurdle. If the above signature looks unfamiliar to you, take a little diversion to check out [this page](/gleam/fold) breaking down the fold function from Gleam's stdlib.
 :::
 
 It's pretty similar to xmlm's fold_signals function: you have the source data, an accumulated value, and an accumulator/reducer/handler function.
