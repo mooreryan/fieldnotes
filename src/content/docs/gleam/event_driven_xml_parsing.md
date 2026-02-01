@@ -62,7 +62,7 @@ fn(Input, acc, fn(acc, Signal) -> acc) -> Result(#(acc, Input), InputError)
 ```
 
 :::note
-If you're new to Gleam (or to any typed language really) getting used to reading type signatures can feel like a bit of a hurdle. If the above signature looks unfamiliar to you, take a little diversion to check out [this page](/gleam/fold) breaking down the fold function from Gleam's stdlib.
+If you're new to Gleam (or to any typed language really) getting used to reading type signatures can feel like a bit of a hurdle. If the above signature looks unfamiliar to you, take a little diversion to check out [this page](/gleam/fold.md) breaking down the fold function from Gleam's stdlib.
 :::
 
 It's pretty similar to xmlm's fold_signals function: you have the source data, an accumulated value, and an accumulator/reducer/handler function.

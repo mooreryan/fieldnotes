@@ -6,4 +6,4 @@ sidebar:
   label: Index
 ---
 
-- [Notes on Astro Starlight](/uncategorized/starlight_notes)
+- [Notes on Astro Starlight](/uncategorized/starlight_notes.md)
