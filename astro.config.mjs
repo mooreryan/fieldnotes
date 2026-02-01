@@ -6,6 +6,7 @@ import remarkStripMdLinks from "./remark-strip-md-links.mjs";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://fieldnotes.tenderisthebyte.com/",
   markdown: {
     remarkPlugins: [remarkStripMdLinks],
   },
