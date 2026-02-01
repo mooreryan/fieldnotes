@@ -2,9 +2,13 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightLinksValidator from "starlight-links-validator";
+import remarkStripMdLinks from "./remark-strip-md-links.mjs";
 
 // https://astro.build/config
 export default defineConfig({
+  markdown: {
+    remarkPlugins: [remarkStripMdLinks],
+  },
   integrations: [
     starlight({
       title: "Field Notes",
