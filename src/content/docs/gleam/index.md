@@ -10,7 +10,13 @@ Gleam is a strongly typed, functional language that compiles to Erlang and JavaS
 
 I would consider it to be part of the [ML-family](<https://en.wikipedia.org/wiki/ML_(programming_language)>) of languages. If you know [OCaml](https://ocaml.org/), you will probably be able to learn the basics of Gleam quite quickly, though, you will likely want to study up on [OTP](https://www.erlang.org/doc/system/design_principles.html) if you want to really take advantage of its actor-based concurrency system.[^1]
 
+## Tutorials
+
 - [Event-Driven XML Parsing](/gleam/event_driven_xml_parsing.md)
+
+## Concepts
+
+- [Fold](/gleam/fold.md)
 
 ---
 
