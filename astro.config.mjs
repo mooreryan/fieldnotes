@@ -14,6 +14,9 @@ export default defineConfig({
     starlight({
       title: "Field Notes",
       plugins: [starlightLinksValidator()],
+      components: {
+        Footer: "./src/components/Footer.astro",
+      },
       social: [
         {
           icon: "github",

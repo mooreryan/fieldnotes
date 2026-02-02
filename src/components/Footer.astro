@@ -1,0 +1,69 @@
+---
+import EditLink from "@astrojs/starlight/components/EditLink.astro";
+import LastUpdated from "@astrojs/starlight/components/LastUpdated.astro";
+const { lang } = Astro.locals.starlightRoute;
+const { data } = Astro.locals.starlightRoute.entry;
+---
+
+<footer class="sl-flex">
+    <div class="meta sl-flex">
+        <EditLink />
+        {
+            data.publishDate && (
+                <p>
+                    Publish date:
+                    <time datetime={data.publishDate.toISOString()}>
+                        {data.publishDate.toLocaleDateString(lang, {
+                            dateStyle: "medium",
+                            timeZone: "UTC",
+                        })}
+                    </time>
+                </p>
+            )
+        }
+        <LastUpdated />
+    </div>
+    <div class="legal">
+        <p>© 2026 Ryan M. Moore</p>
+        <p>
+            The content of this work is licensed under
+            <a href="https://creativecommons.org/licenses/by/4.0/">
+                CC BY 4.0.
+            </a>
+        </p>
+    </div>
+</footer>
+
+<!-- This is adapted from the style from the base Footer.astro -->
+<style>
+    @layer starlight.core {
+        footer {
+            flex-direction: column;
+            color: var(--sl-color-gray-3);
+        }
+
+        .meta {
+            margin-top: 3rem;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: var(--sl-text-sm);
+        }
+
+        .legal {
+            display: flex;
+            flex-direction: column;
+            font-size: var(--sl-text-xs);
+            align-items: flex-end;
+            padding-top: 1rem;
+        }
+
+        .legal a {
+            color: var(--sl-color-gray-3);
+            text-decoration: underline;
+        }
+
+        .legal a:hover {
+            color: var(--sl-color-white);
+        }
+    }
+</style>

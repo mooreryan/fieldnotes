@@ -1,8 +1,8 @@
 ---
 title: Event-Driven XML Parsing in Gleam
 description: A tutorial for event-driven (SAX) parsing of XML files in Gleam using the xmlm package, targeted to beginners.
-publishDate: 2026-01-30
-lastUpdated: 2026-01-30
+publishDate: 2026-02-01
+lastUpdated: 2026-02-01
 sidebar:
   badge: Tutorial
   label: Event-Driven XML Parsing

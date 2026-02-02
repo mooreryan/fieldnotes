@@ -3,6 +3,8 @@ title: Fold
 description: Talking about the fold function from Gleam's standard library.
 sidebar:
   badge: Concept
+publishDate: 2026-02-01
+lastUpdated: 2026-02-01
 ---
 
 "Fold" is a common pattern in functional-style programming. A `fold` function is used to process some data structure and produce some value as a result.

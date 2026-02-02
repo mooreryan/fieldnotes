@@ -1,6 +1,8 @@
 ---
 title: Gleam Field Notes
 description: Notes on the Gleam programming language
+publishDate: 2026-02-01
+lastUpdated: 2026-02-01
 sidebar:
   order: 0
   label: Index
