@@ -18,6 +18,15 @@ export default defineConfig({
         Footer: "./src/components/Footer.astro",
       },
       customCss: ["./src/assets/styles/custom.css"],
+      head: [
+        {
+          tag: "script",
+          attrs: {
+            src: "https://scripts.simpleanalyticscdn.com/latest.js",
+            defer: true,
+          },
+        },
+      ],
       social: [
         {
           icon: "github",
