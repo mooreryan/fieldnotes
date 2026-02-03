@@ -40,6 +40,10 @@ export default defineConfig({
           autogenerate: { directory: "gleam" },
         },
         {
+          label: ".NET",
+          autogenerate: { directory: "dotnet" },
+        },
+        {
           label: "Uncategorized",
           autogenerate: { directory: "uncategorized" },
         },
