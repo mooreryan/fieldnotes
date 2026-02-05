@@ -22,4 +22,4 @@ I would consider it to be part of the [ML-family](<https://en.wikipedia.org/wiki
 
 ---
 
-[^1]: I really enjoyed the book _Elixir in Action_ by Saša Jurić for this. I have also heard good things about _Designing for Scalability with Erlang/OTP_ by Francesco Cesarini and Steve Vinoski, but I have not read that one yet.
+[^1]: I really enjoyed the book _Elixir in Action_ by Saša Jurić for this, at least for Elixir (I'm still trying to work out OTP in Gleam). I have also heard good things about _Designing for Scalability with Erlang/OTP_ by Francesco Cesarini and Steve Vinoski, but I have not read that one yet.
