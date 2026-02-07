@@ -37,3 +37,31 @@ You might look at that and think: "Oh! That `sleep X && blah` pattern is no good
 I think it may be possible to figure out what is going wrong with those two options by looking through the `watchexec` logs if you set the verbosity high enough.
 
 Anyway, the above command works fine. You may need to play around with different combinations of debounce time and sleep seconds to really dial it in.
+
+## Troubleshooting
+
+Sometimes, things may get weird. You may get some sort of crash or other event that causes things to break. In these cases you may need to manually kill the `beam.smp` process and restart the watcher.
+
+You can find the correct process using `ps`:
+
+```
+ps aux | grep beam
+```
+
+In that process list, look for some command called `beam.smp` and look for your app in the arguments. E.g., if your app is called `abc`, then you would look for something like this: `-eval token_tally@@main:run(token_tally)` in the arguments.
+
+For example, you may see something like this:
+
+```
+ryan 12345 ... /opt/homebrew/Cellar/erlang/28.1/lib/erlang/erts-16.1/bin/beam.smp -- ... -eval abc@@main:run(abc) -noshell -- --
+```
+
+(The `...` placeholders will be filled with a ton of stuff, so be aware of that.)
+
+Go ahead an kill it:
+
+```
+kill 12345
+```
+
+Wait a few seconds, then restart the watcher and you should be good to go.
