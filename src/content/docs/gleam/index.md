@@ -16,10 +16,14 @@ I would consider it to be part of the [ML-family](<https://en.wikipedia.org/wiki
 
 - [Event-Driven XML Parsing](/gleam/event_driven_xml_parsing.md)
 
+## How-To Guides
+
+- [Using watchexec with Wisp](/gleam/watchexec_wisp_eaddrinuse.md)
+
 ## Concepts
 
 - [Fold](/gleam/fold.md)
 
 ---
 
-[^1]: I really enjoyed the book _Elixir in Action_ by Saša Jurić for this, at least for Elixir (I'm still trying to work out OTP in Gleam). I have also heard good things about _Designing for Scalability with Erlang/OTP_ by Francesco Cesarini and Steve Vinoski, but I have not read that one yet.
+[^1]: I really enjoyed the book _Elixir in Action_ by Saša Jurić. I'm still trying to figure out OTP, so I frequently refer back to it. I have also heard good things about _Designing for Scalability with Erlang/OTP_ by Francesco Cesarini and Steve Vinoski, but I have not read that one yet.
