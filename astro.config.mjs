@@ -10,6 +10,9 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkStripMdLinks],
   },
+  redirects: {
+    "/dotnet/multi_project_solutions": "/uncategorized/multi_project_solutions",
+  },
   integrations: [
     starlight({
       title: "Field Notes",
@@ -38,10 +41,6 @@ export default defineConfig({
         {
           label: "Gleam",
           autogenerate: { directory: "gleam" },
-        },
-        {
-          label: ".NET",
-          autogenerate: { directory: "dotnet" },
         },
         {
           label: "Uncategorized",

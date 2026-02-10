@@ -8,4 +8,5 @@ sidebar:
   label: Index
 ---
 
+- [Multi-Project Solutions in .NET](/uncategorized/multi_project_solutions.md)
 - [Notes on Astro Starlight](/uncategorized/starlight_notes.md)

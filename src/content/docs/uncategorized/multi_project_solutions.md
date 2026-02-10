@@ -4,7 +4,7 @@ description: Using the .NET CLI program to set up a solution with multiple proje
 publishDate: 2026-02-02
 lastUpdated: 2026-02-02
 sidebar:
-  label: Multi-Project Solutions
+  label: Multi-Project Solutions in .NET
 ---
 
 I have previously used JetBrains Rider when working on C# projects. However, I'm currently giving VS Code a try instead. The [.NET CLI](https://learn.microsoft.com/en-us/dotnet/core/tools/) program (`dotnet`) makes it pretty simple to manage projects and solutions, no fancy IDE needed!

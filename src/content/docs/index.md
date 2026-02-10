@@ -11,5 +11,4 @@ lastUpdated: 2026-02-01
 ## Index Pages
 
 - [Gleam Field Notes](/gleam/)
-- [.NET Field Notes](/dotnet/)
 - [Uncategorized Field Notes](/uncategorized/)
